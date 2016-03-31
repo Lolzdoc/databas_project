@@ -23,7 +23,7 @@ public class Main extends Application {
 			Parent root = loader.load();
 
 			Scene scene = new Scene(root,600,440);
-			scene.getStylesheets().add(getClass().getResource("login.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("../old/login.css").toExternalForm());
 			//			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
 			// obtain main controller
@@ -40,9 +40,9 @@ public class Main extends Application {
 				alert.setContentText("Could not connect to the database! Check console for details.");
 				alert.showAndWait();
 			}
-            wc.getBookingTab().initializeFix();
+            //wc.getBookingTab().initializeFix();
 			// show the main window
-			primaryStage.setTitle("Movie Booking System");
+			primaryStage.setTitle("Cookie Booking System");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 

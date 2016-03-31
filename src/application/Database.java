@@ -1,8 +1,9 @@
 package application;
 
+import old.Show;
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Database is a class that specifies the interface to the 

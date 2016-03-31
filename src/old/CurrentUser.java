@@ -1,4 +1,4 @@
-package application;
+package old;
 
 /**
  * CurrentUser represents the current user that has logged on to

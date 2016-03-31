@@ -1,6 +1,6 @@
-package application;
+package old;
 
-import com.mysql.jdbc.PreparedStatement;
+import application.Database;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 import java.util.List;
-import java.util.ArrayList;
 
 
 public class BookingTab {

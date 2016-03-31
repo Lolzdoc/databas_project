@@ -2,6 +2,8 @@ package application;
 
 import javafx.scene.Parent;
 import javafx.fxml.FXML;
+import old.BookingTab;
+import old.LoginTab;
 
 public class TopTabView {
 	@FXML private Parent aLoginTab;
@@ -15,15 +17,16 @@ public class TopTabView {
 		
 		// send the booking controller ref to the login controller
 		// in order to pass data around
-		aLoginTabController.setBookingTab(aBookingTabController);
+		//aLoginTabController.setBookingTab(aBookingTabController);
 	}
 	
 	public void setDatabase(Database db) {
-		aLoginTabController.setDatabase(db);
-		aBookingTabController.setDatabase(db);
+		//aLoginTabController.setDatabase(db);
+		//aBookingTabController.setDatabase(db);
 	}
 
-    public BookingTab getBookingTab() {
+   /* public BookingTab getBookingTab() {
         return aBookingTabController;
     }
+    */
 }
