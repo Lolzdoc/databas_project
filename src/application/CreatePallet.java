@@ -38,7 +38,7 @@ public class CreatePallet {
     private TextField prod_date;
 
     @FXML
-    private ListView<?> recepie_list;
+    private ListView<?> recipe_list;
 
     @FXML
     private Button submit;
@@ -46,6 +46,7 @@ public class CreatePallet {
 
     @FXML
     void submitButtonAction(ActionEvent event) {
+
     }
 
     @FXML
@@ -55,11 +56,13 @@ public class CreatePallet {
         assert deliv_date != null : "fx:id=\"deliv_date\" was not injected: check your FXML file 'TopTab33.fxml'.";
         assert location != null : "fx:id=\"location\" was not injected: check your FXML file 'TopTab33.fxml'.";
         assert prod_date != null : "fx:id=\"prod_date\" was not injected: check your FXML file 'TopTab33.fxml'.";
-        assert recepie_list != null : "fx:id=\"recepie_list\" was not injected: check your FXML file 'TopTab33.fxml'.";
+        assert recipe_list != null : "fx:id=\"recipe_list\" was not injected: check your FXML file 'TopTab33.fxml'.";
         assert submit != null : "fx:id=\"submit\" was not injected: check your FXML file 'TopTab33.fxml'.";
-
-
+        
     }
 
+    public void updateRecipes(){
+
+    }
 }
 

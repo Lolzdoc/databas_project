@@ -9,7 +9,7 @@
 
 <AnchorPane fx:controller="application.CreatePallet" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
-    <ListView id="recepies" fx:id="recepie_list" disable="false" layoutX="38.0" layoutY="50.0" prefHeight="300.0" prefWidth="147.0">
+    <ListView id="recipes" fx:id="recipe_list" disable="false" layoutX="38.0" layoutY="50.0" prefHeight="300.0" prefWidth="147.0">
       <contextMenu>
         <ContextMenu>
           <items>
@@ -19,7 +19,7 @@
       </contextMenu>
     </ListView>
     <TextField fx:id="customer_id" layoutX="214.0" layoutY="50.0" prefWidth="123.0" promptText="customer_id" />
-    <Text layoutX="73.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recepies" textAlignment="CENTER" underline="false">
+    <Text layoutX="73.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipes" textAlignment="CENTER" underline="false">
       <font>
         <Font size="17.0" />
       </font>

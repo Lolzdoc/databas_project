@@ -31,7 +31,7 @@ public class BlockPallets {
     void initialize() {
         assert NbrOfPallets != null : "fx:id=\"NbrOfPallets\" was not injected: check your FXML file 'BlockPallets.fxml'.";
         assert palletCalcButton != null : "fx:id=\"palletCalcButton\" was not injected: check your FXML file 'BlockPallets.fxml'.";
-
+        System.out.println("BlockPallets");
 
     }
 
