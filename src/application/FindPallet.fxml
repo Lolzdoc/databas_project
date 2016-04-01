@@ -43,7 +43,55 @@
             </SplitPane>
           </children>
         </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="135.0" prefWidth="597.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="135.0" prefWidth="597.0">
+          <children>
+            <GridPane alignment="TOP_RIGHT" prefHeight="162.0" prefWidth="597.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <AnchorPane prefHeight="27.0" prefWidth="341.1424560546875" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                  <children>
+                    <Text layoutX="201.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Id:" />
+                  </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                  <children>
+                    <Text layoutX="225.0" layoutY="21.0" scaleX="1.0" scaleY="0.9999853252986969" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" />
+                  </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                  <children>
+                    <Text layoutX="229.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Blocked:" />
+                  </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                  <children>
+                    <Text layoutX="209.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Baked Date" />
+                  </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                  <children>
+                    <Text layoutX="196.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Date" />
+                  </children>
+                </AnchorPane>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+          </children>
+        </AnchorPane>
       </items>
     </SplitPane>
   </children>
