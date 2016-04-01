@@ -12,6 +12,15 @@ import javafx.scene.control.TextField;
 
 public class BlockPallets {
 
+    private Database db;
+    public void setDatabase(Database db) {
+        this.db = db;
+    }
+
+
+
+
+
     @FXML
     private ResourceBundle resources;
 
@@ -45,15 +54,15 @@ public class BlockPallets {
     void calcPalletAction(ActionEvent event) {
     }
 
-    @FXML
-    void initialize() {
-        assert NbrOfPallets != null : "fx:id=\"NbrOfPallets\" was not injected: check your FXML file 'BlockPallets.fxml'.";
+
+    public void initialize() {
+      /*  assert NbrOfPallets != null : "fx:id=\"NbrOfPallets\" was not injected: check your FXML file 'BlockPallets.fxml'.";
         assert block_button != null : "fx:id=\"block_button\" was not injected: check your FXML file 'BlockPallets.fxml'.";
         assert end_date != null : "fx:id=\"end_date\" was not injected: check your FXML file 'BlockPallets.fxml'.";
         assert palletCalcButton != null : "fx:id=\"palletCalcButton\" was not injected: check your FXML file 'BlockPallets.fxml'.";
         assert recipe_list != null : "fx:id=\"recipe_list\" was not injected: check your FXML file 'BlockPallets.fxml'.";
         assert start_date != null : "fx:id=\"start_date\" was not injected: check your FXML file 'BlockPallets.fxml'.";
-
+    */
 
     }
 

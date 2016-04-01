@@ -1,28 +1,49 @@
 package application;
 
-import javafx.scene.Parent;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import old.BookingTab;
-import old.LoginTab;
+import javafx.scene.layout.AnchorPane;
 
 public class TopTabView {
-	@FXML private Parent aLoginTab;
-	@FXML private LoginTab aLoginTabController;
 
-	@FXML private Parent aBookingTab;
-	@FXML private BookingTab aBookingTabController;
-	
-	public void initialize() {
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private AnchorPane ablockPalletsTab;
+    @FXML
+    private BlockPallets ablockPalletsTabController;
+
+
+    @FXML
+    private AnchorPane aSearchTab;
+    @FXML
+    private FindPallet aSearchTabController;
+
+
+    @FXML
+    private AnchorPane apalletTab;
+    @FXML
+    private CreatePallet apalletTabController;
+
+
+    public void initialize() {
 		System.out.println("TopTabView initializing");
-		
+
 		// send the booking controller ref to the login controller
 		// in order to pass data around
 		//aLoginTabController.setBookingTab(aBookingTabController);
 	}
 	
 	public void setDatabase(Database db) {
-		//aLoginTabController.setDatabase(db);
-		//aBookingTabController.setDatabase(db);
+
+        ablockPalletsTabController.setDatabase(db);
+        aSearchTabController.setDatabase(db);
+        apalletTabController.setDatabase(db);
 	}
 
    /* public BookingTab getBookingTab() {
@@ -30,3 +51,6 @@ public class TopTabView {
     }
     */
 }
+
+
+

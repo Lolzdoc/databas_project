@@ -14,6 +14,13 @@ package application;
 
 public class FindPallet {
 
+
+
+    private Database db;
+    public void setDatabase(Database db) {
+        this.db = db;
+    }
+
     @FXML
     private ResourceBundle resources;
 
@@ -61,8 +68,9 @@ public class FindPallet {
     void filterPalletButtonAction(ActionEvent event) {
     }
 
-    @FXML
-    void initialize() {
+
+    public void initialize() {
+        /*
         assert Backed_date_out != null : "fx:id=\"Backed_date_out\" was not injected: check your FXML file 'FindPallet.fxml'.";
         assert block_Button != null : "fx:id=\"block_Button\" was not injected: check your FXML file 'FindPallet.fxml'.";
         assert blocked_out != null : "fx:id=\"blocked_out\" was not injected: check your FXML file 'FindPallet.fxml'.";
@@ -75,7 +83,7 @@ public class FindPallet {
         assert prod_date_end != null : "fx:id=\"prod_date_end\" was not injected: check your FXML file 'FindPallet.fxml'.";
         assert prod_date_start != null : "fx:id=\"prod_date_start\" was not injected: check your FXML file 'FindPallet.fxml'.";
         assert recipe_list != null : "fx:id=\"recipe_list\" was not injected: check your FXML file 'FindPallet.fxml'.";
-
+    */
 
     }
 

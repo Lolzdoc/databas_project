@@ -30,7 +30,9 @@ public class BookingTab {
 	
 	// booking button
 	@FXML private Button bookTicket;
-	
+
+
+
 	private Database db;
 	private Show crtShow = new Show();
 
@@ -119,7 +121,7 @@ public class BookingTab {
 	private void fillDatesList(String m) {
 		List<String> alldates = null;//new ArrayList<String>();
 		if(m!=null) {
-            alldates = db.movieDates(m);
+           // alldates = db.movieDates(m);
 
             datesList.setItems(FXCollections.observableList(alldates));
 
