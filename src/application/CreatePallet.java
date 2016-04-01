@@ -65,7 +65,7 @@ public class CreatePallet {
         boolean error = false;
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Felaktig inmatning");
-        String s = null;
+        String s = "";
         try{
             customerID = Integer.parseInt(customer_id.getText());
         } catch (NumberFormatException e){
