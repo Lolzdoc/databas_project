@@ -104,6 +104,7 @@ public class Database {
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet result = ps.executeQuery();
             ArrayList<String> allRecipes = new ArrayList<>();
+            System.out.println("asasdasdasdd");
             while(result.next()) {
                 allRecipes.add(result.getString("recipeName"));
             }
@@ -111,7 +112,7 @@ public class Database {
         } catch (SQLException e) {
             System.err.println(e);
             e.printStackTrace();
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
     }
 

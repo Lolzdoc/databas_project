@@ -30,6 +30,12 @@ public class TopTabView {
     @FXML
     private CreatePallet apalletTabController;
 
+    public void initializeFix(){
+        ablockPalletsTabController.fillTables();
+        aSearchTabController.fillTables();
+        apalletTabController.fillTables();
+        System.out.println("ASD");
+    }
 
     public void initialize() {
 		System.out.println("TopTabView initializing");

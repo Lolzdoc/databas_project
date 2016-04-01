@@ -17,8 +17,14 @@ public class FindPallet {
 
 
     private Database db;
+
+
     public void setDatabase(Database db) {
         this.db = db;
+    }
+
+    public void fillTables() {
+
     }
 
     @FXML

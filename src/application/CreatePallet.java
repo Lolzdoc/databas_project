@@ -19,8 +19,14 @@ public class CreatePallet {
 
 
     private Database db;
+
+
     public void setDatabase(Database db) {
         this.db = db;
+    }
+
+    public void fillTables() {
+        fillList();
     }
 
     @FXML

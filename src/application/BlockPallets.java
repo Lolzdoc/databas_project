@@ -13,10 +13,15 @@ import javafx.scene.control.TextField;
 public class BlockPallets {
 
     private Database db;
+
+
     public void setDatabase(Database db) {
         this.db = db;
     }
 
+    public void fillTables() {
+
+    }
 
 
 
