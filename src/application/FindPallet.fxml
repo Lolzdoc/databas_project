@@ -7,7 +7,13 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+
+
+<!--
+    fx:controller="application.FindPallet"
+  -->
+
+<AnchorPane fx:controller="application.FindPallet" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <SplitPane dividerPositions="0.5843828715365239" focusTraversable="true" layoutX="0.0" layoutY="0.0" orientation="VERTICAL" prefHeight="399.0" prefWidth="599.0">
       <items>
@@ -17,12 +23,12 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                   <children>
-                    <ListView prefHeight="227.0" prefWidth="231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    <ListView id="recipe_list" fx:id="filter_result_list" prefHeight="227.0" prefWidth="231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                   <children>
-                    <SplitMenuButton layoutX="179.0" layoutY="26.0" mnemonicParsing="false" text="SplitMenuButton">
+                    <SplitMenuButton fx:id="recipe_list" blendMode="SRC_OVER" layoutX="179.0" layoutY="26.0" mnemonicParsing="false" text="SplitMenuButton" wrapText="false">
                       <items>
                         <MenuItem mnemonicParsing="false" text="Action 1" />
                         <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -32,11 +38,11 @@
                     <Text layoutX="24.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer id" />
                     <Text layoutX="24.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Production date (Start)" />
                     <Text layoutX="24.0" layoutY="141.0" scaleX="1.0000007047754556" scaleY="0.9999919334021683" strokeType="OUTSIDE" strokeWidth="0.0" text="Production date (End)" />
-                    <TextField layoutX="179.0" layoutY="59.0" prefWidth="160.0" />
-                    <TextField layoutX="179.0" layoutY="91.0" prefWidth="160.0" />
-                    <TextField layoutX="179.0" layoutY="122.0" prefWidth="160.0" />
-                    <RadioButton layoutX="179.0" layoutY="158.0" mnemonicParsing="false" text="Blocked" />
-                    <Button layoutX="273.0" layoutY="193.0" mnemonicParsing="false" text="Filter" />
+                    <TextField fx:id="customer_id" layoutX="179.0" layoutY="59.0" prefWidth="160.0" />
+                    <TextField id="prod_date" fx:id="prod_date_start" layoutX="179.0" layoutY="91.0" prefWidth="160.0" />
+                    <TextField fx:id="prod_date_end" layoutX="179.0" layoutY="122.0" prefWidth="160.0" />
+                    <RadioButton fx:id="is_Blocked" layoutX="179.0" layoutY="158.0" mnemonicParsing="false" text="Blocked" />
+                    <Button fx:id="block_Button" layoutX="273.0" layoutY="193.0" mnemonicParsing="false" onAction="#filterPalletButtonAction" text="Filter" />
                   </children>
                 </AnchorPane>
               </items>
@@ -59,24 +65,24 @@
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
                   <children>
-                    <Text layoutX="229.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Blocked:" />
+                    <Text layoutX="229.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Blocked:" />
                   </children>
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
                   <children>
-                    <Text layoutX="209.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Baked Date" />
+                    <Text layoutX="205.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Baked Date:" />
                   </children>
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4">
                   <children>
-                    <Text layoutX="196.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Date" />
+                    <Text layoutX="191.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Date:" />
                   </children>
                 </AnchorPane>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <Text fx:id="customer_id_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Text fx:id="location_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Text fx:id="blocked_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Text fx:id="Backed_date_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Text fx:id="deleivery_date_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="4" />
               </children>
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

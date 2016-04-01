@@ -1,12 +1,9 @@
 package application;
 
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
@@ -38,7 +35,7 @@ public class CreatePallet {
     private TextField prod_date;
 
     @FXML
-    private ListView<?> recepie_list;
+    private ListView<?> recipe_list;
 
     @FXML
     private Button submit;
@@ -50,16 +47,15 @@ public class CreatePallet {
 
     @FXML
     void initialize() {
-        assert blocked_enable != null : "fx:id=\"blocked_enable\" was not injected: check your FXML file 'TopTab33.fxml'.";
-        assert customer_id != null : "fx:id=\"customer_id\" was not injected: check your FXML file 'TopTab33.fxml'.";
-        assert deliv_date != null : "fx:id=\"deliv_date\" was not injected: check your FXML file 'TopTab33.fxml'.";
-        assert location != null : "fx:id=\"location\" was not injected: check your FXML file 'TopTab33.fxml'.";
-        assert prod_date != null : "fx:id=\"prod_date\" was not injected: check your FXML file 'TopTab33.fxml'.";
-        assert recepie_list != null : "fx:id=\"recepie_list\" was not injected: check your FXML file 'TopTab33.fxml'.";
-        assert submit != null : "fx:id=\"submit\" was not injected: check your FXML file 'TopTab33.fxml'.";
+        assert blocked_enable != null : "fx:id=\"blocked_enable\" was not injected: check your FXML file 'CreatePallet.fxml'.";
+        assert customer_id != null : "fx:id=\"customer_id\" was not injected: check your FXML file 'CreatePallet.fxml'.";
+        assert deliv_date != null : "fx:id=\"deliv_date\" was not injected: check your FXML file 'CreatePallet.fxml'.";
+        assert pallet_location != null : "fx:id=\"pallet_location\" was not injected: check your FXML file 'CreatePallet.fxml'.";
+        assert prod_date != null : "fx:id=\"prod_date\" was not injected: check your FXML file 'CreatePallet.fxml'.";
+        assert recipe_list != null : "fx:id=\"recipe_list\" was not injected: check your FXML file 'CreatePallet.fxml'.";
+        assert submit != null : "fx:id=\"submit\" was not injected: check your FXML file 'CreatePallet.fxml'.";
 
 
     }
 
 }
-

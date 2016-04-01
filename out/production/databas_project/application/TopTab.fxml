@@ -14,7 +14,7 @@
                 <fx:include fx:id="BlockPalletsTab" source="BlockPallets.fxml"/>
         </Tab>
         <Tab text="Search">
-                <fx:include fx:id="aBookingTab" source="../old/MainPage.fxml"/>
+                <fx:include fx:id="aSearchTab" source="FindPallet.fxml"/>
         </Tab>
     </tabs>
     </TabPane>
