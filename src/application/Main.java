@@ -33,7 +33,10 @@ public class Main extends Application {
 
 			// opening database connection
 			/* --- TODO: change xxx to your user name, yyy to your passowrd --- */
+<<<<<<< HEAD
+=======
             //if(!db.openConnection("db116", "mrd163yv"))
+>>>>>>> 50b8deaa445e31018e617367a49d3e15be6c8f4a
 			if(!db.openConnection("db98", "znw031qr")) {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Database error");
