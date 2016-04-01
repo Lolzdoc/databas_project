@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <SplitPane dividerPositions="0.5843828715365239" focusTraversable="true" layoutX="0.0" layoutY="0.0" orientation="VERTICAL" prefHeight="399.0" prefWidth="599.0">
+      <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <children>
+            <SplitPane dividerPositions="0.39327731092436974" focusTraversable="true" layoutX="0.0" layoutY="0.0" prefHeight="229.0" prefWidth="597.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                  <children>
+                    <ListView prefHeight="227.0" prefWidth="231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                  <children>
+                    <SplitMenuButton layoutX="179.0" layoutY="26.0" mnemonicParsing="false" text="SplitMenuButton">
+                      <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                      </items>
+                    </SplitMenuButton>
+                    <Text layoutX="24.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe" />
+                    <Text layoutX="24.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer id" />
+                    <Text layoutX="24.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Production date (Start)" />
+                    <Text layoutX="24.0" layoutY="141.0" scaleX="1.0000007047754556" scaleY="0.9999919334021683" strokeType="OUTSIDE" strokeWidth="0.0" text="Production date (End)" />
+                    <TextField layoutX="179.0" layoutY="59.0" prefWidth="160.0" />
+                    <TextField layoutX="179.0" layoutY="91.0" prefWidth="160.0" />
+                    <TextField layoutX="179.0" layoutY="122.0" prefWidth="160.0" />
+                    <RadioButton layoutX="179.0" layoutY="158.0" mnemonicParsing="false" text="Blocked" />
+                    <Button layoutX="273.0" layoutY="193.0" mnemonicParsing="false" text="Filter" />
+                  </children>
+                </AnchorPane>
+              </items>
+            </SplitPane>
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="135.0" prefWidth="597.0" />
+      </items>
+    </SplitPane>
+  </children>
+</AnchorPane>
