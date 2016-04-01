@@ -11,7 +11,7 @@
             <fx:include fx:id="apalletTab" source="CreatePallet.fxml"/>
         </Tab>
         <Tab text="Blocking">
-                <fx:include fx:id="BlockPalletsTab" source="BlockPallets.fxml"/>
+                <fx:include fx:id="ablockPalletsTab" source="BlockPallets.fxml"/>
         </Tab>
         <Tab text="Search">
                 <fx:include fx:id="aSearchTab" source="FindPallet.fxml"/>

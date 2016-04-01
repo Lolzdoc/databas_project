@@ -42,7 +42,7 @@ public class Main extends Application {
 				alert.setContentText("Could not connect to the database! Check console for details.");
 				alert.showAndWait();
 			}
-            //wc.getBookingTab().initializeFix();
+            wc.initializeFix();
 			// show the main window
 			primaryStage.setTitle("Cookie Booking System");
 			primaryStage.setScene(scene);

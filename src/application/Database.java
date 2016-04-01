@@ -98,17 +98,17 @@ public class Database {
     }
 
 
-    public ArrayList<String> movieDates(String movieName) {
+    public ArrayList<String> getRecipes() {
         try {
-            String sql = "select performanceDate from Performance where Performance.movieName = ? order by performanceDate";
+            String sql = "select * from Recipes";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1,movieName);
             ResultSet result = ps.executeQuery();
-            ArrayList<String> movieDates = new ArrayList<>();
+            ArrayList<String> allRecipes = new ArrayList<>();
+            System.out.println("asasdasdasdd");
             while(result.next()) {
-                movieDates.add(result.getString("performanceDate"));
+                allRecipes.add(result.getString("recipeName"));
             }
-            return movieDates;
+            return allRecipes;
         } catch (SQLException e) {
             System.err.println(e);
             e.printStackTrace();
