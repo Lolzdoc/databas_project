@@ -57,41 +57,56 @@ public class CreatePallet {
     private Button submit;
 
     private String currentLocation = null;
-
+    private String currentRecipe = null;
 
     @FXML
     void submitButtonAction(ActionEvent event) {
         Integer customerID = null;
+        boolean error = false;
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Felaktig inmatning");
+        String s = null;
         try{
             customerID = Integer.parseInt(customer_id.getText());
         } catch (NumberFormatException e){
-            System.out.println("Felaktigt id");
+            s += "CustomerID är felaktig" + "\n";
+            error = true;
         }
 
         String deliveryDate = deliv_date.getText();
         if(!isValidDate(deliveryDate)){
-//            Skicka Felmeddelande (Ogiltigt datum)
-            System.out.println("Fel deliv datum");
+            s += "Felaktigt deliv date" + "\n";
+            error = true;
         }
 
         String productionDate = prod_date.getText();
         if(!isValidDate(productionDate)){
-//            Skicka felmeddelande (Ogiltigt datum)
-            System.out.println("Fel prod datum");
+            s += "Felaktigt prod date" + "\n";
+            error = true;
         }
         Boolean blockedStatus = blocked_enable.isSelected();
 
         if(currentLocation == null){
-//            Skicka felmeddelande (Ingen location vald)
-            System.out.println("Fel location");
+            s += "Ingen Location vald" + "\n";
+            error = true;
         }
 
-        System.out.println(customerID.toString());
-        System.out.println(deliveryDate);
-        System.out.println(productionDate);
-        System.out.println(blockedStatus);
-        System.out.println(currentLocation);
+        if(currentRecipe == null){
+            s += "Ingen recept valt" + "\n";
+            error = true;
+        }
 
+        if(error){
+            alert.setContentText(s);
+            alert.showAndWait();
+        } else {
+            System.out.println(deliveryDate);
+            System.out.println(productionDate);
+            System.out.println(blockedStatus);
+            System.out.println(currentLocation);
+            System.out.println(currentRecipe);
+
+        }
     }
 
 
@@ -132,6 +147,11 @@ public class CreatePallet {
                 pallet_location.setText(item.getText());
             });
         }
+
+        recipe_list.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldV, newV) -> {
+                    currentRecipe = newV;
+                });
 
     }
 
