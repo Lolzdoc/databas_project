@@ -116,16 +116,48 @@ public class Database {
         }
     }
 
-    public ArrayList<String> movieTitles(){
+    public ArrayList<String> getPallets_filterd(String customer_Id,String start_Date,String end_Date, String recipe){
         try {
-            String sql = "select * from Movies order by movieName";
-            PreparedStatement ps1 = conn.prepareStatement(sql);
-            ResultSet result = ps1.executeQuery();
-            ArrayList<String> movieList = new ArrayList<>();
-            while(result.next()) {
-               movieList.add(result.getString("movieName"));
+
+            System.out.println("customer_Id = [" + customer_Id + "], start_Date = [" + start_Date + "], end_Date = [" + end_Date + "], recipe = [" + recipe + "]");
+            int offset = 2;
+            String sql;
+            if(customer_Id.matches("-1")){
+                sql = "select palletID from Pallets where timestampBaking between ? and ?  ";
+
+            } else {
+                 sql = "select palletID from Pallets where timestampBaking between ? and ?  and customerID = ? ";
+                offset = 3;
+
             }
-            return movieList;
+            PreparedStatement ps;
+
+
+            if(recipe != "Cookies_test" && !recipe.isEmpty()){
+                sql += "and recipeName = ?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(offset+1,recipe);
+            }else {
+                ps = conn.prepareStatement(sql);
+            }
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,start_Date);
+            ps.setString(2,end_Date);
+
+
+            if(offset == 3) { // if 3 then a customer id is included
+                ps.setString(3,customer_Id);
+            }
+
+            System.out.println("sql = " + sql);
+            ResultSet result = ps.executeQuery();
+            ArrayList<String> palletList = new ArrayList<>();
+            System.out.println("hej");
+            while(result.next()) {
+                System.out.println("qweqweqweqweqweqweqweqwe");
+                palletList.add(result.getString("palletID"));
+            }
+            return palletList;
         } catch (SQLException e) {
             System.err.println(e);
             e.printStackTrace();

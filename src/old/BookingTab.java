@@ -110,12 +110,12 @@ public class BookingTab {
 	}
 	
 	private void fillNamesList() {
-		List<String> allmovies = db.movieTitles();
+		//List<String> allmovies = db.movieTitles();
         //List<String> allmovies = new ArrayList<>();
 
-		moviesList.setItems(FXCollections.observableList(allmovies));
+		//moviesList.setItems(FXCollections.observableList(allmovies));
 		// remove any selection
-		moviesList.getSelectionModel().clearSelection();
+		//moviesList.getSelectionModel().clearSelection();
 	}
 
 	private void fillDatesList(String m) {

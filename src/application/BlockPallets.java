@@ -1,7 +1,10 @@
 package application;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,9 +23,18 @@ public class BlockPallets {
     }
 
     public void fillTables() {
-
+        fillList();
     }
+    private void fillList(){
 
+        List<String> allRecipes = null;//new ArrayList<String>();
+        allRecipes = db.getRecipes();
+
+        recipe_list.setItems(FXCollections.observableList(allRecipes));
+
+        // remove any selection
+        recipe_list.getSelectionModel().clearSelection();
+    }
 
 
 
@@ -45,7 +57,7 @@ public class BlockPallets {
     private Button palletCalcButton;
 
     @FXML
-    private ListView<?> recipe_list;
+    private ListView<String> recipe_list;
 
     @FXML
     private TextField start_date;

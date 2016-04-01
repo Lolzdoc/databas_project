@@ -1,7 +1,10 @@
 package application;
 
         import java.net.URL;
+        import java.util.List;
         import java.util.ResourceBundle;
+
+        import javafx.collections.FXCollections;
         import javafx.event.ActionEvent;
         import javafx.fxml.FXML;
         import javafx.scene.control.Button;
@@ -24,7 +27,7 @@ public class FindPallet {
     }
 
     public void fillTables() {
-
+        filter();
     }
 
     @FXML
@@ -52,7 +55,7 @@ public class FindPallet {
     private Text deleivery_date_out;
 
     @FXML
-    private ListView<?> filter_result_list;
+    private ListView<String> filter_result_list;
 
     @FXML
     private RadioButton is_Blocked;
@@ -72,8 +75,48 @@ public class FindPallet {
 
     @FXML
     void filterPalletButtonAction(ActionEvent event) {
+        filter();
     }
 
+
+    private void filter(){
+        String customer_id_filter = "-1";
+
+        if (customer_id.getText().trim().matches("^[0-9]+$")){
+            customer_id_filter = customer_id.getText().trim();
+        }
+
+
+
+        String prod_date_start_filter = prod_date_start.getText();
+        String prod_date_end_filter = prod_date_end.getText();
+        prod_date_start_filter = prod_date_start_filter.trim();
+        prod_date_end_filter = prod_date_end_filter.trim();
+
+
+        if(!prod_date_start_filter.matches("^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$")){
+            prod_date_start_filter = "1901-01-01";
+        }
+
+        if(!prod_date_end_filter.matches("^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$")){
+            prod_date_end_filter = "9999-12-31";
+        }
+
+            List<String> pallets_filterd = null;
+
+
+            pallets_filterd = db.getPallets_filterd(customer_id_filter,prod_date_start_filter,prod_date_end_filter,"Cookies_test");
+
+            filter_result_list.setItems(FXCollections.observableList(pallets_filterd));
+
+            // remove any selection
+            filter_result_list.getSelectionModel().clearSelection();
+
+
+
+
+
+    }
 
     public void initialize() {
         /*

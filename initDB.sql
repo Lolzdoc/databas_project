@@ -60,11 +60,13 @@ CREATE TABLE Customers(
 CREATE TABLE Pallets(
   palletID int auto_increment,
   customerID int,
+  recipeName varchar(40),
   location varchar(40),
   timestampBaking Date,
   blockForDelivery boolean,
   timestampDelivery Date,
   primary key(palletID),
+  foreign key(recipeName) references Recipes(recipeName),
   foreign key(customerID) references Customers(customerID)
 );
 
