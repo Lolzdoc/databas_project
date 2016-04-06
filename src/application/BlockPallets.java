@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 public class BlockPallets {
 
     private Database db;
-
+    private List<String> allRecipes = null;//new ArrayList<String>();
 
     public void setDatabase(Database db) {
         this.db = db;
@@ -27,7 +27,7 @@ public class BlockPallets {
     }
     private void fillList(){
 
-        List<String> allRecipes = null;//new ArrayList<String>();
+
         allRecipes = db.getRecipes();
 
         recipe_list.setItems(FXCollections.observableList(allRecipes));
@@ -65,6 +65,7 @@ public class BlockPallets {
 
     @FXML
     void blockButtonAction(ActionEvent event) {
+        db.getPallets_filtered(null,null,start_date,end_date,null,0);
     }
 
     @FXML

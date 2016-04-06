@@ -7,19 +7,17 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-
-
 <!--
     fx:controller="application.FindPallet"
   -->
 
-<AnchorPane fx:controller="application.FindPallet" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FindPallet">
   <children>
     <SplitPane dividerPositions="0.5843828715365239" focusTraversable="true" layoutX="0.0" layoutY="0.0" orientation="VERTICAL" prefHeight="399.0" prefWidth="599.0">
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
           <children>
-            <SplitPane dividerPositions="0.39327731092436974" focusTraversable="true" layoutX="0.0" layoutY="0.0" prefHeight="229.0" prefWidth="597.0">
+            <SplitPane dividerPositions="0.29747899159663865" focusTraversable="true" layoutX="0.0" layoutY="0.0" prefHeight="229.0" prefWidth="597.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                   <children>
@@ -28,12 +26,6 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                   <children>
-                    <SplitMenuButton fx:id="recipe_list" blendMode="SRC_OVER" layoutX="179.0" layoutY="26.0" mnemonicParsing="false" text="SplitMenuButton" wrapText="false">
-                      <items>
-                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                        <MenuItem mnemonicParsing="false" text="Action 2" />
-                      </items>
-                    </SplitMenuButton>
                     <Text layoutX="24.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recipe" />
                     <Text layoutX="24.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer id" />
                     <Text layoutX="24.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Production date (Start)" />
@@ -41,8 +33,11 @@
                     <TextField fx:id="customer_id" layoutX="179.0" layoutY="59.0" prefWidth="160.0" />
                     <TextField id="prod_date" fx:id="prod_date_start" layoutX="179.0" layoutY="91.0" prefWidth="160.0" />
                     <TextField fx:id="prod_date_end" layoutX="179.0" layoutY="122.0" prefWidth="160.0" />
-                    <RadioButton fx:id="is_Blocked" layoutX="179.0" layoutY="158.0" mnemonicParsing="false" text="Blocked" />
                     <Button fx:id="block_Button" layoutX="273.0" layoutY="193.0" mnemonicParsing="false" onAction="#filterPalletButtonAction" text="Filter" />
+                              <TextField fx:id="deliv_date" layoutX="179.0" layoutY="155.0" prefHeight="25.0" prefWidth="160.0" />
+                              <Label layoutX="24.0" layoutY="159.0" text="Delivery Date" />
+                              <ComboBox fx:id="recipe_list" layoutX="179.0" layoutY="27.0" prefHeight="25.0" prefWidth="160.0" />
+                              <CheckBox fx:id="is_Blocked" layoutX="25.0" layoutY="185.0" mnemonicParsing="false" text="Blocked" />
                   </children>
                 </AnchorPane>
               </items>
@@ -51,51 +46,72 @@
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="135.0" prefWidth="597.0">
           <children>
-            <GridPane alignment="TOP_RIGHT" prefHeight="162.0" prefWidth="597.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <children>
-                <AnchorPane prefHeight="27.0" prefWidth="341.1424560546875" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                  <children>
-                    <Text layoutX="201.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Id:" />
-                  </children>
-                </AnchorPane>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                  <children>
-                    <Text layoutX="225.0" layoutY="21.0" scaleX="1.0" scaleY="0.9999853252986969" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" />
-                  </children>
-                </AnchorPane>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                  <children>
-                    <Text layoutX="229.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Blocked:" />
-                  </children>
-                </AnchorPane>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                  <children>
-                    <Text layoutX="205.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Baked Date:" />
-                  </children>
-                </AnchorPane>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                  <children>
-                    <Text layoutX="191.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Date:" />
-                  </children>
-                </AnchorPane>
-                <Text fx:id="customer_id_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                <Text fx:id="location_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Text fx:id="blocked_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <Text fx:id="Backed_date_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Text fx:id="deleivery_date_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-              </children>
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
+                  <SplitPane dividerPositions="0.47394957983193275" prefHeight="162.0" prefWidth="597.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                        <GridPane alignment="TOP_RIGHT" prefHeight="158.0" prefWidth="56.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <children>
+                            <AnchorPane prefHeight="27.0" prefWidth="341.1424560546875" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                              <children>
+                                <Text layoutX="49.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Id:" />
+                              </children>
+                            </AnchorPane>
+                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                              <children>
+                                <Text layoutX="69.0" layoutY="18.0" scaleX="1.0" scaleY="0.9999853252986969" strokeType="OUTSIDE" strokeWidth="0.0" text="Location:" />
+                              </children>
+                            </AnchorPane>
+                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                              <children>
+                                <Text layoutX="74.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Blocked:" />
+                              </children>
+                            </AnchorPane>
+                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                              <children>
+                                <Text layoutX="56.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Baked Date:" />
+                              </children>
+                            </AnchorPane>
+                            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                              <children>
+                                <Text layoutX="46.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Date:" />
+                              </children>
+                            </AnchorPane>
+                            <Text fx:id="customer_id_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                            <Text fx:id="location_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            <Text fx:id="blocked_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <Text fx:id="Backed_date_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                            <Text fx:id="delivery_date_out" strokeType="OUTSIDE" strokeWidth="0.0" text="---" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <Label layoutX="78.0" layoutY="5.0" text="Recipe:" />
+                                       </children>
+                                    </AnchorPane>
+                                    <Label fx:id="recipe_out" text="---" GridPane.columnIndex="1" />
+                          </children>
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane prefHeight="160.0" prefWidth="305.0">
+                           <children>
+                              <Button layoutX="202.0" layoutY="55.0" mnemonicParsing="false" onAction="#deliver_button_action" text="Deliver" />
+                              <TextField fx:id="deliv_date_in" layoutX="36.0" layoutY="55.0" promptText="Date" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
           </children>
         </AnchorPane>
       </items>

@@ -15,7 +15,7 @@ set foreign_key_checks = 1;
 CREATE TABLE RawMaterials(
   materialName varchar(40),
   measurementUnit varchar(5),
-  currentAmount double default 0,
+  currentAmount double default 9999,
   lastDelivered Date,
   amountDelivered double,
   primary key(materialName)
@@ -62,7 +62,7 @@ CREATE TABLE Pallets(
   customerID int,
   recipeName varchar(40),
   location varchar(40),
-  timestampBaking Date,
+  timestampBaking Date, -- Fix stuff that should be not Null!!
   blockForDelivery boolean,
   timestampDelivery Date,
   primary key(palletID),

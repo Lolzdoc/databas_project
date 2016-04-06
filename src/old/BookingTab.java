@@ -136,7 +136,7 @@ public class BookingTab {
 		else if(date==null) // no date selected yet
 			crtShow = new Show(movie);
 		else // query the database via db
-			crtShow = db.getShowData(movie, date);
+			//crtShow = db.getShowData(movie, date);
 		
 		showTitle.setText(crtShow.title);
 		showDate.setText(crtShow.date);

@@ -34,7 +34,6 @@ public class TopTabView {
         ablockPalletsTabController.fillTables();
         aSearchTabController.fillTables();
         apalletTabController.fillTables();
-        System.out.println("ASD");
     }
 
     public void initialize() {

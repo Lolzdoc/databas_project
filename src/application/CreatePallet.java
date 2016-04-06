@@ -74,9 +74,11 @@ public class CreatePallet {
         }
 
         String deliveryDate = deliv_date.getText();
-        if(!isValidDate(deliveryDate)){
-            s += "Felaktigt deliv date" + "\n";
-            error = true;
+        if (!deliveryDate.isEmpty()) {
+            if(!isValidDate(deliveryDate)){
+                s += "Felaktigt deliv date" + "\n";
+                error = true;
+            }
         }
 
         String productionDate = prod_date.getText();
@@ -85,6 +87,9 @@ public class CreatePallet {
             error = true;
         }
         Boolean blockedStatus = blocked_enable.isSelected();
+        if(blockedStatus){
+            deliveryDate = "";
+        }
 
         if(currentLocation == null){
             s += "Ingen Location vald" + "\n";
@@ -100,6 +105,7 @@ public class CreatePallet {
             alert.setContentText(s);
             alert.showAndWait();
         } else {
+            db.createPallet(customerID,deliveryDate,productionDate,blockedStatus,currentLocation,currentRecipe);
             System.out.println(deliveryDate);
             System.out.println(productionDate);
             System.out.println(blockedStatus);

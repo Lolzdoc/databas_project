@@ -1,22 +1,15 @@
 package application;
 
-        import java.net.URL;
-        import java.util.List;
-        import java.util.ResourceBundle;
+import java.util.List;
 
-        import javafx.collections.FXCollections;
-        import javafx.event.ActionEvent;
-        import javafx.fxml.FXML;
-        import javafx.scene.control.Button;
-        import javafx.scene.control.ListView;
-        import javafx.scene.control.RadioButton;
-        import javafx.scene.control.SplitMenuButton;
-        import javafx.scene.control.TextField;
-        import javafx.scene.text.Text;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
 
 
 public class FindPallet {
-
 
 
     private Database db;
@@ -27,65 +20,83 @@ public class FindPallet {
     }
 
     public void fillTables() {
+        List<String> allRecipes = null;//new ArrayList<String>();
+        allRecipes = db.getRecipes();
+
+        recipe_list.setItems(FXCollections.observableList(allRecipes));
+        recipe_list.getSelectionModel().clearSelection();
         filter();
     }
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
+    private Text deliver_button;
 
     @FXML
     private Text Backed_date_out;
 
     @FXML
+    private TextField prod_date_start;
+
+    @FXML
     private Button block_Button;
 
     @FXML
-    private Text blocked_out;
+    private CheckBox is_Blocked;
 
     @FXML
-    private TextField customer_id;
+    private ComboBox<String> recipe_list;
 
     @FXML
-    private Text customer_id_out;
-
-    @FXML
-    private Text deleivery_date_out;
-
-    @FXML
-    private ListView<String> filter_result_list;
-
-    @FXML
-    private RadioButton is_Blocked;
+    private Label recipe_out;
 
     @FXML
     private Text location_out;
 
     @FXML
+    private Text blocked_out;
+
+    @FXML
+    private Text delivery_date_out;
+
+    @FXML
+    private TextField deliv_date;
+
+    @FXML
+    private ListView<String> filter_result_list;
+
+    @FXML
+    private Text customer_id_out;
+
+    @FXML
+    private TextField customer_id;
+
+    @FXML
+    private TextField deliv_date_in;
+
+    @FXML
     private TextField prod_date_end;
-
-    @FXML
-    private TextField prod_date_start;
-
-    @FXML
-    private SplitMenuButton recipe_list;
-
 
     @FXML
     void filterPalletButtonAction(ActionEvent event) {
         filter();
     }
 
+    @FXML
+    void deliver_button_action(ActionEvent event) {
+        db.deliverPallet(deliv_date_in.getText(),"1234");
+    }
 
-    private void filter(){
+    private void update_review_panel(){
+        db.update_review_panel("1234",recipe_out,customer_id_out,location_out,blocked_out,Backed_date_out,delivery_date_out);
+    }
+
+
+    private void filter() {
         String customer_id_filter = "-1";
 
-        if (customer_id.getText().trim().matches("^[0-9]+$")){
+        if (customer_id.getText().trim().matches("^[0-9]+$")) {
             customer_id_filter = customer_id.getText().trim();
         }
-
 
 
         String prod_date_start_filter = prod_date_start.getText();
@@ -94,26 +105,23 @@ public class FindPallet {
         prod_date_end_filter = prod_date_end_filter.trim();
 
 
-        if(!prod_date_start_filter.matches("^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$")){
+        if (!prod_date_start_filter.matches("^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$")) {
             prod_date_start_filter = "1901-01-01";
         }
 
-        if(!prod_date_end_filter.matches("^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$")){
+        if (!prod_date_end_filter.matches("^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$")) {
             prod_date_end_filter = "9999-12-31";
         }
 
-            List<String> pallets_filterd = null;
+        List<String> pallets_filtered;
 
 
-            pallets_filterd = db.getPallets_filterd(customer_id_filter,prod_date_start_filter,prod_date_end_filter,"Cookies_test");
+        pallets_filtered = db.getPallets_filtered(deliv_date.getText(), customer_id_filter, prod_date_start_filter, prod_date_end_filter, "", is_Blocked.isSelected());
 
-            filter_result_list.setItems(FXCollections.observableList(pallets_filterd));
+        filter_result_list.setItems(FXCollections.observableList(pallets_filtered));
 
-            // remove any selection
-            filter_result_list.getSelectionModel().clearSelection();
-
-
-
+        // remove any selection
+        filter_result_list.getSelectionModel().clearSelection();
 
 
     }

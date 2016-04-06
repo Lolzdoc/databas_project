@@ -6,13 +6,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
+
 <!--
     fx:controller="application.CreatePallet"
       -->
 
-
-
-<AnchorPane fx:controller="application.CreatePallet" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreatePallet">
   <children>
     <ListView id="recipes" fx:id="recipe_list" disable="false" layoutX="38.0" layoutY="50.0" prefHeight="300.0" prefWidth="147.0">
       <contextMenu>
