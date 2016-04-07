@@ -1,6 +1,7 @@
 package application;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -65,7 +66,7 @@ public class BlockPallets {
 
     @FXML
     void blockButtonAction(ActionEvent event) {
-        db.getPallets_filtered(null,null,start_date,end_date,null,0);
+       ArrayList<String> pallets = db.getPallets_filtered(null, null, start_date.getText(), end_date.getText(), null, false);
     }
 
     @FXML
