@@ -295,21 +295,17 @@ public class Database {
                 String sql = "INSERT INTO Pallets (customerID,recipeName,location,timestampBaking,blockForDelivery,timestampDelivery) VALUES (?, ?, ?, ?, ?, ?);";
                 PreparedStatement ps = conn.prepareStatement(sql);
 
-
-                DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-
-                ps.setString(1, ((Integer) customerID).toString());
+                ps.setInt(1, customerID);
                 ps.setString(2, currentRecipe);
                 ps.setString(3, currentLocation);
-                ps.setDate(4, (Date) format.parse(productionDate));
+                ps.setDate(4, Date.valueOf(productionDate));
                 ps.setBoolean(5, blockedStatus);
 
-                if (!blockedStatus && deliveryDate != null && deliveryDate.isEmpty()){
-                    ps.setDate(6, (Date) format.parse(deliveryDate));
+                if (!blockedStatus && deliveryDate != null && !deliveryDate.isEmpty()){
+                    ps.setDate(6, Date.valueOf(deliveryDate));
                 } else {
                     ps.setDate(6, null);
                 }
-
 
                 ps.executeUpdate();
             }
@@ -317,8 +313,6 @@ public class Database {
 
         } catch (SQLException e) {
             System.err.println(e);
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         } finally {
             try {
