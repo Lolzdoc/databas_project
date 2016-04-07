@@ -159,6 +159,7 @@ public class CreatePallet {
                     currentRecipe = newV;
                 });
 
+        pallet_location.setText("Deep-Freeze Storage");
     }
 
 }
