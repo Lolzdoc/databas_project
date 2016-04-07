@@ -28,40 +28,46 @@ public class BlockPallets {
     }
     private void fillList(){
 
-
+        ArrayList<String> pallets = db.getPallets_filtered(null, null, "1901-01-01", "9999-12-31", null, false);
         allRecipes = db.getRecipes();
 
-        recipe_list.setItems(FXCollections.observableList(allRecipes));
 
+        recipe_list.setItems(FXCollections.observableList(allRecipes));
+        Filter_result_pane.setItems(FXCollections.observableList(pallets));
         // remove any selection
         recipe_list.getSelectionModel().clearSelection();
     }
 
 
 
-    @FXML
-    private ResourceBundle resources;
+        @FXML
+        private TextField end_date;
 
-    @FXML
-    private URL location;
+        @FXML
+        private ListView<String> Filter_result_pane;
 
-    @FXML
-    private Label NbrOfPallets;
+        @FXML
+        private Label NbrOfPallets;
 
-    @FXML
-    private Button block_button;
+        @FXML
+        private ListView<String> recipe_list;
 
-    @FXML
-    private TextField end_date;
+        @FXML
+        private TextField start_date;
 
-    @FXML
-    private Button palletCalcButton;
+        @FXML
+        private Button palletCalcButton;
 
-    @FXML
-    private ListView<String> recipe_list;
+        @FXML
+        private Button block_button;
 
-    @FXML
-    private TextField start_date;
+        @FXML
+        void refresh_button_action(ActionEvent event) {
+
+        }
+
+
+
 
 
     @FXML
