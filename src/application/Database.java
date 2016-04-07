@@ -288,14 +288,17 @@ public class Database {
             ps.setInt(1, pallet_id);
             ResultSet result = ps.executeQuery();
             if(result.next()){
-                if((!result.getBoolean("blockForDelivery") && isDateValid(deliv_date.trim()) && result.getDate("timestampBaking").compareTo(Date.valueOf(deliv_date.trim())) < 0)|| result.getDate("timestampDelivery") == null){
-                    String updateSql = "update Pallets set timestampDelivery = ? where palletID = ?";
-                    PreparedStatement up = conn.prepareStatement(updateSql);
+                if(result.getDate("timestampDelivery") == null){
+                    if((!result.getBoolean("blockForDelivery") && isDateValid(deliv_date.trim()) && result.getDate("timestampBaking").compareTo(Date.valueOf(deliv_date.trim())) < 0)){
+                        String updateSql = "update Pallets set timestampDelivery = ? where palletID = ?";
+                        PreparedStatement up = conn.prepareStatement(updateSql);
 
-                    up.setString(1, deliv_date.trim());
-                    up.setInt(2, pallet_id);
-                    up.executeUpdate();
-                    delivered = true;
+                        up.setString(1, deliv_date.trim());
+                        up.setInt(2, pallet_id);
+                        up.executeUpdate();
+                        delivered = true;
+                    }
+
                 }
             }
 
