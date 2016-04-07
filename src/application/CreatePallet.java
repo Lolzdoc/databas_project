@@ -154,8 +154,8 @@ public class CreatePallet {
                 (obs, oldV, newV) -> {
                     currentRecipe = newV;
                 });
-
         pallet_location.setText("Deep-Freeze Storage");
+        currentLocation = pallet_location.getText();
     }
 
 }
