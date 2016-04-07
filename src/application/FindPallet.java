@@ -2,6 +2,8 @@ package application;
 
 import java.util.List;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -76,6 +78,8 @@ public class FindPallet {
     @FXML
     private TextField prod_date_end;
 
+    private String currentRecipe = "";
+
     @FXML
     void filterPalletButtonAction(ActionEvent event) {
         filter();
@@ -83,19 +87,19 @@ public class FindPallet {
 
     @FXML
     void deliver_button_action(ActionEvent event) {
-        db.deliverPallet(deliv_date_in.getText(),"1234");
+        db.deliverPallet(deliv_date_in.getText(), "1234");
     }
 
-    private void update_review_panel(){
-        db.update_review_panel("1234",recipe_out,customer_id_out,location_out,blocked_out,Backed_date_out,delivery_date_out);
+    private void update_review_panel() {
+        db.update_review_panel("1234", recipe_out, customer_id_out, location_out, blocked_out, Backed_date_out, delivery_date_out);
     }
 
 
     private void filter() {
-        String customer_id_filter = "-1";
+        int customer_id_filter = -1;
 
         if (customer_id.getText().trim().matches("^[0-9]+$")) {
-            customer_id_filter = customer_id.getText().trim();
+            customer_id_filter = Integer.parseInt(customer_id.getText().trim());
         }
 
 
@@ -116,7 +120,7 @@ public class FindPallet {
         List<String> pallets_filtered;
 
 
-        pallets_filtered = db.getPallets_filtered(deliv_date.getText(), customer_id_filter, prod_date_start_filter, prod_date_end_filter, "", is_Blocked.isSelected());
+        pallets_filtered = db.getPallets_filtered(deliv_date.getText(), customer_id_filter, prod_date_start_filter, prod_date_end_filter, currentRecipe, is_Blocked.isSelected());
 
         filter_result_list.setItems(FXCollections.observableList(pallets_filtered));
 
@@ -141,6 +145,15 @@ public class FindPallet {
         assert prod_date_start != null : "fx:id=\"prod_date_start\" was not injected: check your FXML file 'FindPallet.fxml'.";
         assert recipe_list != null : "fx:id=\"recipe_list\" was not injected: check your FXML file 'FindPallet.fxml'.";
     */
+        filter_result_list.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldV, newV) -> {
+                    db.update_review_panel(newV, recipe_out, customer_id_out, location_out, blocked_out, Backed_date_out, delivery_date_out);
+                });
+
+        recipe_list.getSelectionModel().selectedItemProperty().addListener((ChangeListener) (ov, old_val, new_val) -> {
+                currentRecipe = (String) new_val;
+        });
+
 
     }
 

@@ -41,7 +41,7 @@ public class BlockPallets {
         recipe_list.getSelectionModel().select(0);
 
 
-        pallets_for_blocking = db.getPallets_filtered(null, null, "1901-01-01", "9999-12-31", currentRecipe, false);
+        pallets_for_blocking = db.getPallets_filtered(null, -1, "1901-01-01", "9999-12-31", currentRecipe, false);
         Filter_result_pane.setItems(FXCollections.observableList(pallets_for_blocking));
         Filter_result_pane.getSelectionModel().clearSelection();
 
@@ -90,7 +90,7 @@ public class BlockPallets {
             }
 
 
-            pallets_for_blocking = db.getPallets_filtered(null, null, prod_date_start_filter, prod_date_end_filter, currentRecipe, false);
+            pallets_for_blocking = db.getPallets_filtered(null, -1, prod_date_start_filter, prod_date_end_filter, currentRecipe, false);
             Filter_result_pane.setItems(FXCollections.observableList(pallets_for_blocking));
             // remove any selection
             Filter_result_pane.getSelectionModel().clearSelection();
