@@ -101,12 +101,9 @@ public class CreatePallet {
             alert.setContentText(s);
             alert.showAndWait();
         } else {
-            db.createPallet(customerID,deliveryDate,productionDate,blockedStatus,currentLocation,currentRecipe);
-            System.out.println(deliveryDate);
-            System.out.println(productionDate);
-            System.out.println(blockedStatus);
-            System.out.println(currentLocation);
-            System.out.println(currentRecipe);
+            if(!db.createPallet(customerID,deliveryDate,productionDate,blockedStatus,currentLocation,currentRecipe)){
+                System.out.println("ERROR failed to create pallet, please verify that there is enough raw materials");
+            }
 
         }
     }

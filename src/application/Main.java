@@ -43,7 +43,7 @@ public class Main extends Application {
 			}
             wc.initializeFix();
 			// show the main window
-			primaryStage.setTitle("Cookie Booking System");
+			primaryStage.setTitle("Cookie Baking System");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 

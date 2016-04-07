@@ -2,7 +2,6 @@ package application;
 
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
-import old.Show;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import java.sql.*;
@@ -310,8 +309,8 @@ public class Database {
         return delivered;
     }
 
-    public void createPallet(int customerID, String deliveryDate, String productionDate,Boolean blockedStatus,String currentLocation,String currentRecipe) {
-        boolean failure = false;
+    public boolean createPallet(int customerID, String deliveryDate, String productionDate,Boolean blockedStatus,String currentLocation,String currentRecipe) {
+        boolean success = true;
         try {
             conn.setAutoCommit(false);
 
@@ -336,7 +335,7 @@ public class Database {
                         up.executeUpdate();
 
                     } else {
-                        failure = true;
+                        success = false;
                         System.out.println("Database.createPallet");
                         conn.rollback();
                         break;
@@ -345,7 +344,7 @@ public class Database {
 
             }
 
-            if (!failure){
+            if (success){
                 String sql = "INSERT INTO Pallets (customerID,recipeName,location,timestampBaking,blockForDelivery,timestampDelivery) VALUES (?, ?, ?, ?, ?, ?);";
                 PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -376,7 +375,7 @@ public class Database {
                 e.printStackTrace();
             }
         }
-
+        return success;
 
     }
 
