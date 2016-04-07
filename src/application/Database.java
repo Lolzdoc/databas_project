@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import old.Show;
 
+import javax.xml.parsers.FactoryConfigurationError;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -116,6 +117,54 @@ public class Database {
             e.printStackTrace();
             return new ArrayList<>();
         }
+    }
+
+    public boolean blockPallets(ArrayList<String> pallet_ids){
+        boolean failure = false;
+        try {
+            conn.setAutoCommit(false);
+
+            for (String pallet_id : pallet_ids) {
+
+                String sql = "select blockForDelivery from Pallets where palletID = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, Integer.parseInt(pallet_id));
+                ResultSet result = ps.executeQuery();
+                if(result.next()){
+                    if(!result.getBoolean("blockForDelivery")){
+                        String updateSql = "update Pallets set blockForDelivery = ? where palletID = ?";
+                        PreparedStatement up = conn.prepareStatement(updateSql); // updates remainingSeats
+
+                        up.setBoolean(1, true);
+                        up.setString(2, pallet_id);
+                        if (up.executeUpdate() == 0){
+                            failure = true;
+                            System.out.println("Database.blockPallet");
+                            conn.rollback();
+                            break;
+                        }
+                    }
+                }
+
+
+            }
+
+
+
+        } catch (SQLException e) {
+            failure = true;
+            e.printStackTrace();
+        }finally {
+            try {
+                conn.commit();
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                failure = true;
+                e.printStackTrace();
+            }
+        }
+        return failure;
+
     }
 
     public ArrayList<String> getPallets_filtered(String delivery_date, int customer_Id, String start_Date, String end_Date, String recipe, boolean blocked) {
