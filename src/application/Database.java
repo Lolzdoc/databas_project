@@ -432,5 +432,22 @@ public class Database {
 
     }
 
+    public boolean customerNotRegistered(Integer customerID) {
+        try {
+            String sql = "select * from Customers where customerID = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, customerID);
+            ResultSet result = ps.executeQuery();
+            if(result.next()){
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e);
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     /* --- TODO: insert more own code here --- */
 }

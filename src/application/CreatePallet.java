@@ -72,6 +72,10 @@ public class CreatePallet {
             s += "CustomerID är felaktig" + "\n";
             error = true;
         }
+        if(db.customerNotRegistered(customerID)){
+            s += "Kunden finns ej i databasen" + "\n";
+            error = true;
+        }
 
         String deliveryDate = deliv_date.getText();
         if (!deliveryDate.isEmpty()) {
@@ -110,6 +114,7 @@ public class CreatePallet {
 
         }
     }
+
 
 
     private void fillList(){
