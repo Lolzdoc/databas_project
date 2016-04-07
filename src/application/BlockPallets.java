@@ -66,7 +66,7 @@ public class BlockPallets {
 
     @FXML
     void blockButtonAction(ActionEvent event) {
-       ArrayList<String> pallets = db.getPallets_filtered(null, null, start_date.getText(), end_date.getText(), null, false);
+       ArrayList<String> pallets = db.getPallets_filtered(null, -1, start_date.getText(), end_date.getText(), null, false);
     }
 
     @FXML

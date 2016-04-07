@@ -118,7 +118,7 @@ public class Database {
         }
     }
 
-    public ArrayList<String> getPallets_filtered(String delivery_date, String customer_Id, String start_Date, String end_Date, String recipe, boolean blocked) {
+    public ArrayList<String> getPallets_filtered(String delivery_date, int customer_Id, String start_Date, String end_Date, String recipe, boolean blocked) {
         try {
             System.out.println("customer_Id = [" + customer_Id + "], start_Date = [" + start_Date + "], end_Date = [" + end_Date + "], recipe = [" + recipe + "]");
 
@@ -127,7 +127,7 @@ public class Database {
 
             boolean haveDelivDate = delivery_date != null && !delivery_date.isEmpty();
             boolean haveRecipe = recipe != null && !recipe.isEmpty();
-            boolean havecustomerId = customer_Id != null && !customer_Id.matches("-1");
+            boolean havecustomerId = customer_Id > 0 ;
             
 
             sql = "select palletID from Pallets where timestampBaking between ? and ?";
@@ -164,7 +164,7 @@ public class Database {
             }
 
             if (havecustomerId) {
-                ps.setString(offset, customer_Id);
+                ps.setInt(offset, customer_Id);
             }
 
             System.out.println("sql = " + sql);
@@ -207,7 +207,7 @@ public class Database {
 
                 PreparedStatement ps1 = conn.prepareStatement(sql_customer);
                 ps1.setInt(1,result.getInt("customerID"));
-                ResultSet result1 = ps.executeQuery();
+                ResultSet result1 = ps1.executeQuery();
 
                 if(result1.next()){
 
@@ -239,7 +239,7 @@ public class Database {
             ResultSet result = ps.executeQuery();
             if(result.next()){
                 if(!result.getBoolean("blockForDelivery") && isDateValid(deliv_date.trim())){
-                    String updateSql = "update Performance set timestampDelivery = ? palletID = ?";
+                    String updateSql = "update Pallets set timestampDelivery = ? palletID = ?";
                     PreparedStatement up = conn.prepareStatement(updateSql); // updates remainingSeats
 
                     up.setString(1, deliv_date.trim());
