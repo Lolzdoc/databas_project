@@ -1,5 +1,6 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.value.ChangeListener;
@@ -16,14 +17,14 @@ public class FindPallet {
 
     private Database db;
 
-
     public void setDatabase(Database db) {
         this.db = db;
     }
 
     public void fillTables() {
-        List<String> allRecipes = null;//new ArrayList<String>();
-        allRecipes = db.getRecipes();
+        List<String> allRecipes = new ArrayList<String>();
+        allRecipes.add("");
+        allRecipes.addAll(db.getRecipes());
 
         recipe_list.setItems(FXCollections.observableList(allRecipes));
         recipe_list.getSelectionModel().clearSelection();

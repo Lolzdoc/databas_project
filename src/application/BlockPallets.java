@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 public class BlockPallets {
 
     private Database db;
-    private List<String> allRecipes = null;//new ArrayList<String>();
+    private List<String> allRecipes = new ArrayList<>();
     private ArrayList<String > pallets_for_blocking = null;
     private String currentRecipe = "";
 
@@ -30,9 +30,12 @@ public class BlockPallets {
     }
     private void fillList(){
 
-
-        allRecipes = db.getRecipes();
+        allRecipes.add("");
+        allRecipes.addAll(db.getRecipes());
         recipe_list.setItems(FXCollections.observableList(allRecipes));
+
+
+
         recipe_list.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldV, newV) -> {
                     currentRecipe = newV;
