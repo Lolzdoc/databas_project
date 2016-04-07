@@ -18,6 +18,8 @@ public class BlockPallets {
 
     private Database db;
     private List<String> allRecipes = null;//new ArrayList<String>();
+    private ArrayList<String > pallets_for_blocking = null;
+    private String currentRecipe = "";
 
     public void setDatabase(Database db) {
         this.db = db;
@@ -28,14 +30,23 @@ public class BlockPallets {
     }
     private void fillList(){
 
-        ArrayList<String> pallets = db.getPallets_filtered(null, null, "1901-01-01", "9999-12-31", null, false);
+
         allRecipes = db.getRecipes();
-
-
         recipe_list.setItems(FXCollections.observableList(allRecipes));
-        Filter_result_pane.setItems(FXCollections.observableList(pallets));
+        recipe_list.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldV, newV) -> {
+                    currentRecipe = newV;
+                });
         // remove any selection
-        recipe_list.getSelectionModel().clearSelection();
+        recipe_list.getSelectionModel().select(0);
+
+
+        pallets_for_blocking = db.getPallets_filtered(null, null, "1901-01-01", "9999-12-31", currentRecipe, false);
+        Filter_result_pane.setItems(FXCollections.observableList(pallets_for_blocking));
+        Filter_result_pane.getSelectionModel().clearSelection();
+
+
+
     }
 
 
@@ -64,6 +75,27 @@ public class BlockPallets {
         @FXML
         void refresh_button_action(ActionEvent event) {
 
+            String prod_date_start_filter = start_date.getText();
+            String prod_date_end_filter = end_date.getText();
+            prod_date_start_filter = prod_date_start_filter.trim();
+            prod_date_end_filter = prod_date_end_filter.trim();
+
+
+            if (!prod_date_start_filter.matches("^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$")) {
+                prod_date_start_filter = "1901-01-01";
+            }
+
+            if (!prod_date_end_filter.matches("^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$")) {
+                prod_date_end_filter = "9999-12-31";
+            }
+
+
+            pallets_for_blocking = db.getPallets_filtered(null, null, prod_date_start_filter, prod_date_end_filter, currentRecipe, false);
+            Filter_result_pane.setItems(FXCollections.observableList(pallets_for_blocking));
+            // remove any selection
+            Filter_result_pane.getSelectionModel().clearSelection();
+
+
         }
 
 
@@ -72,11 +104,11 @@ public class BlockPallets {
 
     @FXML
     void blockButtonAction(ActionEvent event) {
-       ArrayList<String> pallets = db.getPallets_filtered(null, null, start_date.getText(), end_date.getText(), null, false);
     }
 
     @FXML
     void calcPalletAction(ActionEvent event) {
+        System.out.println("pallets_for_blocking.size() = " + pallets_for_blocking.size());
     }
 
 
