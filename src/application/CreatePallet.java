@@ -91,10 +91,6 @@ public class CreatePallet {
             deliveryDate = "";
         }
 
-        if(currentLocation == null){
-            s += "Ingen Location vald" + "\n";
-            error = true;
-        }
 
         if(currentRecipe == null){
             s += "Ingen recept valt" + "\n";

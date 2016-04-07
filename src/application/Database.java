@@ -229,22 +229,24 @@ public class Database {
         }
     }
 
-    public void deliverPallet(String deliv_date, String pallet_id) {
+    public boolean deliverPallet(String deliv_date, int pallet_id) {
         //Integer mFreeSeats = 42;
         //String mVenue = "Kino 2";
+        boolean delivered = false;
         try {
             String sql = "select * from Pallets where palletID = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, pallet_id);
+            ps.setInt(1, pallet_id);
             ResultSet result = ps.executeQuery();
             if(result.next()){
-                if(!result.getBoolean("blockForDelivery") && isDateValid(deliv_date.trim())){
-                    String updateSql = "update Pallets set timestampDelivery = ? palletID = ?";
-                    PreparedStatement up = conn.prepareStatement(updateSql); // updates remainingSeats
+                if((!result.getBoolean("blockForDelivery") && isDateValid(deliv_date.trim()) && result.getDate("timestampBaking").compareTo(Date.valueOf(deliv_date.trim())) < 0)|| result.getDate("timestampDelivery") == null){
+                    String updateSql = "update Pallets set timestampDelivery = ? where palletID = ?";
+                    PreparedStatement up = conn.prepareStatement(updateSql);
 
                     up.setString(1, deliv_date.trim());
-                    up.setString(2, pallet_id);
+                    up.setInt(2, pallet_id);
                     up.executeUpdate();
+                    delivered = true;
                 }
             }
 
@@ -253,7 +255,7 @@ public class Database {
             System.err.println(e);
             e.printStackTrace();
         }
-
+        return delivered;
     }
 
     public void createPallet(int customerID, String deliveryDate, String productionDate,Boolean blockedStatus,String currentLocation,String currentRecipe) {

@@ -79,6 +79,7 @@ public class FindPallet {
     private TextField prod_date_end;
 
     private String currentRecipe = "";
+    private String currentPalletID = "";
 
     @FXML
     void filterPalletButtonAction(ActionEvent event) {
@@ -87,7 +88,9 @@ public class FindPallet {
 
     @FXML
     void deliver_button_action(ActionEvent event) {
-        db.deliverPallet(deliv_date_in.getText(), "1234");
+        if(db.deliverPallet(deliv_date_in.getText(), Integer.parseInt(currentPalletID))){
+            delivery_date_out.setText(deliv_date_in.getText());
+        }
     }
 
     private void update_review_panel() {
@@ -148,6 +151,7 @@ public class FindPallet {
         filter_result_list.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldV, newV) -> {
                     db.update_review_panel(newV, recipe_out, customer_id_out, location_out, blocked_out, Backed_date_out, delivery_date_out);
+                    currentPalletID = newV;
                 });
 
         recipe_list.getSelectionModel().selectedItemProperty().addListener((ChangeListener) (ov, old_val, new_val) -> {
