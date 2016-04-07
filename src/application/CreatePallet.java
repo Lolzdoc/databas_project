@@ -120,7 +120,7 @@ public class CreatePallet {
         recipe_list.setItems(FXCollections.observableList(allRecipes));
 
         // remove any selection
-        recipe_list.getSelectionModel().clearSelection();
+        recipe_list.getSelectionModel().select(0);
     }
 
     public static boolean isValidDate(String inDate) {

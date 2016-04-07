@@ -23,8 +23,7 @@ public class Main extends Application {
 			Parent root = loader.load();
 
 			Scene scene = new Scene(root,600,440);
-			scene.getStylesheets().add(getClass().getResource("../old/login.css").toExternalForm());
-			//			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
 
 			// obtain main controller
 			TopTabView wc = (TopTabView) loader.getController();
