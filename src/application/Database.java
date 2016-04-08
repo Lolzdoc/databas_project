@@ -269,8 +269,6 @@ public class Database {
     }
 
     public boolean deliverPallet(String deliv_date, int pallet_id) {
-        //Integer mFreeSeats = 42;
-        //String mVenue = "Kino 2";
         boolean delivered = false;
         try {
             String sql = "select * from Pallets where palletID = ?";
@@ -280,7 +278,7 @@ public class Database {
             if (result.next()) {
                 if (result.getDate("timestampDelivery") == null) {
                     if ((!result.getBoolean("blockForDelivery") && isDateValid(deliv_date.trim()) && result.getDate("timestampBaking").compareTo(Date.valueOf(deliv_date.trim())) < 0)) {
-                        String updateSql = "update Pallets set timestampDelivery = ? and location = ? where palletID = ?";
+                        String updateSql = "update Pallets set timestampDelivery = ?, location = ? where palletID = ?";
                         PreparedStatement up = conn.prepareStatement(updateSql);
 
                         up.setString(1, deliv_date.trim());
@@ -371,56 +369,6 @@ public class Database {
 
     }
 
-
-    public int bookTicket(String movie, String date, String uname) {
-        int resultCode = GENERAL_FAILURE;
-        try {
-            conn.setAutoCommit(false);
-            String check = "select remainingSeats from Performance where Performance.movieName = ? and Performance.performanceDate = ? for update;";
-            PreparedStatement ch = conn.prepareStatement(check);
-            ch.setString(1, movie);
-            ch.setString(2, date);
-            ResultSet seatCheck = ch.executeQuery();
-            if (seatCheck.next() && seatCheck.getInt("remainingSeats") == 0) {
-                resultCode = NO_SEATS_FAILURE; // indicate no available seats
-                conn.rollback();
-            } else {
-
-
-                String updateSql = "update Performance set remainingSeats = remainingSeats - 1 where Performance.movieName = ? and Performance.performanceDate = ?;";
-                PreparedStatement up = conn.prepareStatement(updateSql); // updates remainingSeats
-
-                up.setString(1, movie);
-                up.setString(2, date);
-                up.executeUpdate();
-
-                String sql = "INSERT INTO Ticket (userName,performanceDate,movieName) VALUES (?, ?, ?);";
-                PreparedStatement ps = conn.prepareStatement(sql);
-
-                ps.setString(1, uname);
-                ps.setString(2, date);
-                ps.setString(3, movie);
-                ps.executeUpdate();
-
-                // ResultSet id = conn.prepareStatement("SELECT SCOPE_IDENTITY();").executeQuery();
-                resultCode = SUCCESS;
-            }
-        } catch (SQLException e) {
-            System.err.println(e);
-            e.printStackTrace();
-        } finally {
-            try {
-                conn.commit();
-                conn.setAutoCommit(true);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return resultCode;
-        }
-
-
-    }
-
     public boolean customerNotRegistered(Integer customerID) {
         try {
             String sql = "select * from Customers where customerID = ?";
@@ -437,6 +385,4 @@ public class Database {
         }
         return true;
     }
-
-    /* --- TODO: insert more own code here --- */
 }
