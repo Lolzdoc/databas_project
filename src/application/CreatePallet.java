@@ -94,7 +94,7 @@ public class CreatePallet {
             alert.showAndWait();
         } else {
             if (!db.createPallet(customerID, deliveryDate, productionDate, blockedStatus, currentLocation, currentRecipe)) {
-                System.out.println("ERROR failed to create pallet, please verify that there is enough raw materials");
+                System.out.println("ERROR failed to create pallet");
             }
 
         }
