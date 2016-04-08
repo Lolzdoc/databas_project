@@ -37,6 +37,16 @@ public class CreatePallet {
     private String currentLocation = null;
     private String currentRecipe = null;
 
+
+    public void setDatabase(Database db) {
+        this.db = db;
+    }
+
+    public void fillTables() {
+        fillList();
+    }
+
+
     @FXML
     void submitButtonAction(ActionEvent event) {
         Integer customerID = null;
@@ -90,6 +100,16 @@ public class CreatePallet {
         }
     }
 
+    public static boolean isValidDate(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(inDate.trim());
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
+    }
 
 
     private void fillList(){

@@ -278,7 +278,7 @@ public class Database {
             if (result.next()) {
                 if (result.getDate("timestampDelivery") == null) {
                     if ((!result.getBoolean("blockForDelivery") && isDateValid(deliv_date.trim()) && result.getDate("timestampBaking").compareTo(Date.valueOf(deliv_date.trim())) < 0)) {
-                        String updateSql = "update Pallets set timestampDelivery = ? and location = ? where palletID = ?";
+                        String updateSql = "update Pallets set timestampDelivery = ?, location = ? where palletID = ?";
                         PreparedStatement up = conn.prepareStatement(updateSql);
 
                         up.setString(1, deliv_date.trim());
