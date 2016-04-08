@@ -126,7 +126,7 @@ INSERT INTO RawMaterials(materialName, measurementUnit)
 VALUES ('Icing sugar','g');
 
 INSERT INTO RawMaterials(materialName, measurementUnit)
-VALUES ('Roasted,chopped nuts','g');
+VALUES ('Roasted, chopped nuts','g');
 
 INSERT INTO RawMaterials(materialName, measurementUnit)
 VALUES ('fine-ground nuts','g');

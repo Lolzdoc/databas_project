@@ -2,7 +2,6 @@ package application;
 
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
-import old.Show;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import java.sql.*;
@@ -17,11 +16,6 @@ import java.util.Locale;
  * movie database. Uses JDBC and the MySQL Connector/J driver.
  */
 public class Database {
-    public static final int SUCCESS = 0;
-    public static final int GENERAL_FAILURE = -1;
-    public static final int NO_SEATS_FAILURE = -2;
-
-
     /**
      * The database connection.
      */
@@ -169,7 +163,7 @@ public class Database {
 
     public ArrayList<String> getPallets_filtered(String delivery_date, int customer_Id, String start_Date, String end_Date, String recipe, boolean blocked) {
         try {
-            System.out.println("customer_Id = [" + customer_Id + "], start_Date = [" + start_Date + "], end_Date = [" + end_Date + "], recipe = [" + recipe + "]");
+//            System.out.println("customer_Id = [" + customer_Id + "], start_Date = [" + start_Date + "], end_Date = [" + end_Date + "], recipe = [" + recipe + "]");
 
             int offset = 3;
             String sql;
@@ -216,10 +210,8 @@ public class Database {
                 ps.setInt(offset, customer_Id);
             }
 
-            System.out.println("sql = " + sql);
             ResultSet result = ps.executeQuery();
             ArrayList<String> palletList = new ArrayList<>();
-            System.out.println("hej");
             while (result.next()) {
                 palletList.add(result.getString("palletID"));
             }
@@ -279,8 +271,6 @@ public class Database {
     }
 
     public boolean deliverPallet(String deliv_date, int pallet_id) {
-        //Integer mFreeSeats = 42;
-        //String mVenue = "Kino 2";
         boolean delivered = false;
         try {
             String sql = "select * from Pallets where palletID = ?";
@@ -337,7 +327,6 @@ public class Database {
 
                     } else {
                         failure = true;
-                        System.out.println("Database.createPallet");
                         conn.rollback();
                         break;
                     }
@@ -380,58 +369,6 @@ public class Database {
 
     }
 
-
-
-
-    public int bookTicket(String movie, String date, String uname) {
-        int resultCode = GENERAL_FAILURE;
-        try {
-            conn.setAutoCommit(false);
-            String check = "select remainingSeats from Performance where Performance.movieName = ? and Performance.performanceDate = ? for update;";
-            PreparedStatement ch = conn.prepareStatement(check);
-            ch.setString(1, movie);
-            ch.setString(2, date);
-            ResultSet seatCheck = ch.executeQuery();
-            if (seatCheck.next() && seatCheck.getInt("remainingSeats") == 0) {
-                resultCode = NO_SEATS_FAILURE; // indicate no available seats
-                conn.rollback();
-            } else {
-
-
-                String updateSql = "update Performance set remainingSeats = remainingSeats - 1 where Performance.movieName = ? and Performance.performanceDate = ?;";
-                PreparedStatement up = conn.prepareStatement(updateSql); // updates remainingSeats
-
-                up.setString(1, movie);
-                up.setString(2, date);
-                up.executeUpdate();
-
-                String sql = "INSERT INTO Ticket (userName,performanceDate,movieName) VALUES (?, ?, ?);";
-                PreparedStatement ps = conn.prepareStatement(sql);
-
-                ps.setString(1, uname);
-                ps.setString(2, date);
-                ps.setString(3, movie);
-                ps.executeUpdate();
-
-                // ResultSet id = conn.prepareStatement("SELECT SCOPE_IDENTITY();").executeQuery();
-                resultCode = SUCCESS;
-            }
-        } catch (SQLException e) {
-            System.err.println(e);
-            e.printStackTrace();
-        } finally {
-            try {
-                conn.commit();
-                conn.setAutoCommit(true);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return resultCode;
-        }
-
-
-    }
-
     public boolean customerNotRegistered(Integer customerID) {
         try {
             String sql = "select * from Customers where customerID = ?";
@@ -448,6 +385,4 @@ public class Database {
         }
         return true;
     }
-
-    /* --- TODO: insert more own code here --- */
 }

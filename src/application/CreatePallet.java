@@ -63,31 +63,29 @@ public class CreatePallet {
     void submitButtonAction(ActionEvent event) {
         Integer customerID = null;
         boolean error = false;
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Felaktig inmatning");
         String s = "";
         try{
             customerID = Integer.parseInt(customer_id.getText());
         } catch (NumberFormatException e){
-            s += "CustomerID är felaktig" + "\n";
+            s += "Invalid customer ID" + "\n";
             error = true;
         }
         if(db.customerNotRegistered(customerID)){
-            s += "Kunden finns ej i databasen" + "\n";
+            s += "Customer not found in database" + "\n";
             error = true;
         }
 
         String deliveryDate = deliv_date.getText();
         if (!deliveryDate.isEmpty()) {
             if(!isValidDate(deliveryDate)){
-                s += "Felaktigt deliv date" + "\n";
+                s += "Invalid delivery date" + "\n";
                 error = true;
             }
         }
 
         String productionDate = prod_date.getText();
         if(!isValidDate(productionDate)){
-            s += "Felaktigt prod date" + "\n";
+            s += "Invalid production date" + "\n";
             error = true;
         }
         Boolean blockedStatus = blocked_enable.isSelected();
@@ -97,20 +95,18 @@ public class CreatePallet {
 
 
         if(currentRecipe == null){
-            s += "Ingen recept valt" + "\n";
+            s += "No recipe has been chosen" + "\n";
             error = true;
         }
 
         if(error){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Wrong Input");
             alert.setContentText(s);
             alert.showAndWait();
         } else {
             db.createPallet(customerID,deliveryDate,productionDate,blockedStatus,currentLocation,currentRecipe);
-            System.out.println(deliveryDate);
-            System.out.println(productionDate);
-            System.out.println(blockedStatus);
-            System.out.println(currentLocation);
-            System.out.println(currentRecipe);
+
 
         }
     }
@@ -119,13 +115,19 @@ public class CreatePallet {
 
     private void fillList(){
 
-        List<String> allRecipes = null;//new ArrayList<String>();
+        List<String> allRecipes = null;
         allRecipes = db.getRecipes();
 
-        recipe_list.setItems(FXCollections.observableList(allRecipes));
 
-        // remove any selection
+        pallet_location.setText("Deep-Freeze Storage");
+        currentLocation = pallet_location.getText();
+
+
+
+        recipe_list.setItems(FXCollections.observableList(allRecipes));
         recipe_list.getSelectionModel().select(0);
+
+
     }
 
     public static boolean isValidDate(String inDate) {
@@ -140,14 +142,6 @@ public class CreatePallet {
     }
 
     public void initialize() {
-   /*     assert blocked_enable != null : "fx:id=\"blocked_enable\" was not injected: check your FXML file 'CreatePallet.fxml'.";
-        assert customer_id != null : "fx:id=\"customer_id\" was not injected: check your FXML file 'CreatePallet.fxml'.";
-        assert deliv_date != null : "fx:id=\"deliv_date\" was not injected: check your FXML file 'CreatePallet.fxml'.";
-        assert pallet_location != null : "fx:id=\"pallet_location\" was not injected: check your FXML file 'CreatePallet.fxml'.";
-        assert prod_date != null : "fx:id=\"prod_date\" was not injected: check your FXML file 'CreatePallet.fxml'.";
-        assert recipe_list != null : "fx:id=\"recipe_list\" was not injected: check your FXML file 'CreatePallet.fxml'.";
-        assert submit != null : "fx:id=\"submit\" was not injected: check your FXML file 'CreatePallet.fxml'.";
-    */
         for (final MenuItem item : pallet_location.getItems()) {
             item.setOnAction((event) -> {
                 currentLocation = item.getText();
@@ -155,12 +149,13 @@ public class CreatePallet {
             });
         }
 
+
         recipe_list.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldV, newV) -> {
                     currentRecipe = newV;
                 });
-        pallet_location.setText("Deep-Freeze Storage");
-        currentLocation = pallet_location.getText();
+
+
     }
 
 }
