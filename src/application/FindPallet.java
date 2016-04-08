@@ -73,6 +73,11 @@ public class FindPallet {
     void deliver_button_action(ActionEvent event) {
         if (db.deliverPallet(deliv_date_in.getText(), Integer.parseInt(currentPalletID))) {
             delivery_date_out.setText(deliv_date_in.getText());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Wrong Input");
+            alert.setContentText("Incorrect delivery date");
+            alert.showAndWait();
         }
     }
 
