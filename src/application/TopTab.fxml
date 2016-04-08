@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-
-<BorderPane fx:controller="application.TopTabView"  xmlns:fx="http://javafx.com/fxml/1" styleClass="root">
-<top>
-	<TabPane tabClosingPolicy="UNAVAILABLE">
-    <tabs>
-        <Tab text="Production">
-            <fx:include fx:id="apalletTab" source="CreatePallet.fxml"/>
-        </Tab>
-        <Tab text="Blocking">
-                <fx:include fx:id="ablockPalletsTab" source="BlockPallets.fxml"/>
-        </Tab>
-        <Tab text="Search">
-                <fx:include fx:id="aSearchTab" source="FindPallet.fxml"/>
-        </Tab>
-    </tabs>
-    </TabPane>
-</top>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TopTabView" styleClass="root">
+    <top>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Production">
+                    <fx:include fx:id="apalletTab" source="CreatePallet.fxml"/>
+                </Tab>
+                <Tab text="Blocking">
+                    <fx:include fx:id="ablockPalletsTab" source="BlockPallets.fxml"/>
+                </Tab>
+                <Tab text="Search">
+                    <fx:include fx:id="aSearchTab" source="FindPallet.fxml"/>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </top>
 </BorderPane>
 
