@@ -3,13 +3,11 @@ package application;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
-import javax.xml.parsers.FactoryConfigurationError;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * Database is a class that specifies the interface to the
@@ -19,8 +17,7 @@ public class Database {
     public static final int SUCCESS = 0;
     public static final int GENERAL_FAILURE = -1;
     public static final int NO_SEATS_FAILURE = -2;
-
-
+    final static String DATE_FORMAT = "yyyy-MM-dd";
     /**
      * The database connection.
      */
@@ -32,6 +29,17 @@ public class Database {
      */
     public Database() {
         conn = null;
+    }
+
+    public static boolean isDateValid(String date) {
+        try {
+            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+            df.setLenient(false);
+            df.parse(date);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
     /**
@@ -100,7 +108,6 @@ public class Database {
         }
     }
 
-
     public ArrayList<String> getRecipes() {
         try {
             String sql = "select * from Recipes";
@@ -118,7 +125,7 @@ public class Database {
         }
     }
 
-    public boolean blockPallets(ArrayList<String> pallet_ids){
+    public boolean blockPallets(ArrayList<String> pallet_ids) {
         boolean failure = false;
         try {
             conn.setAutoCommit(false);
@@ -129,14 +136,14 @@ public class Database {
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ps.setInt(1, Integer.parseInt(pallet_id));
                 ResultSet result = ps.executeQuery();
-                if(result.next()){
-                    if(!result.getBoolean("blockForDelivery")){
+                if (result.next()) {
+                    if (!result.getBoolean("blockForDelivery")) {
                         String updateSql = "update Pallets set blockForDelivery = ? where palletID = ?";
                         PreparedStatement up = conn.prepareStatement(updateSql); // updates remainingSeats
 
                         up.setBoolean(1, true);
                         up.setString(2, pallet_id);
-                        if (up.executeUpdate() == 0){
+                        if (up.executeUpdate() == 0) {
                             failure = true;
                             System.out.println("Database.blockPallet");
                             conn.rollback();
@@ -149,11 +156,10 @@ public class Database {
             }
 
 
-
         } catch (SQLException e) {
             failure = true;
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 conn.commit();
                 conn.setAutoCommit(true);
@@ -168,15 +174,15 @@ public class Database {
 
     public ArrayList<String> getPallets_filtered(String delivery_date, int customer_Id, String start_Date, String end_Date, String recipe, boolean blocked) {
         try {
-            System.out.println("customer_Id = [" + customer_Id + "], start_Date = [" + start_Date + "], end_Date = [" + end_Date + "], recipe = [" + recipe + "]");
+           // System.out.println("customer_Id = [" + customer_Id + "], start_Date = [" + start_Date + "], end_Date = [" + end_Date + "], recipe = [" + recipe + "]");
 
             int offset = 3;
             String sql;
 
             boolean haveDelivDate = delivery_date != null && !delivery_date.isEmpty();
             boolean haveRecipe = recipe != null && !recipe.isEmpty();
-            boolean havecustomerId = customer_Id > 0 ;
-            
+            boolean havecustomerId = customer_Id > 0;
+
 
             sql = "select palletID from Pallets where timestampBaking between ? and ?";
             if (haveDelivDate) {
@@ -215,10 +221,9 @@ public class Database {
                 ps.setInt(offset, customer_Id);
             }
 
-            System.out.println("sql = " + sql);
+            //System.out.println("sql = " + sql);
             ResultSet result = ps.executeQuery();
             ArrayList<String> palletList = new ArrayList<>();
-            System.out.println("hej");
             while (result.next()) {
                 palletList.add(result.getString("palletID"));
             }
@@ -229,21 +234,8 @@ public class Database {
             return new ArrayList<>();
         }
     }
-    final static String DATE_FORMAT = "yyyy-MM-dd";
 
-    public static boolean isDateValid(String date)
-    {
-        try {
-            DateFormat df = new SimpleDateFormat(DATE_FORMAT);
-            df.setLenient(false);
-            df.parse(date);
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
-    }
-
-    public void update_review_panel(String pallet_id, Label recipe, Text customer_id, Text location, Text blocked, Text bake_date, Text deliv_date){
+    public void update_review_panel(String pallet_id, Label recipe, Text customer_id, Text location, Text blocked, Text bake_date, Text deliv_date) {
         String sql = "select * from Pallets where palletID = ?";
         String sql_customer = "select name from Customers where customerID = ?";
         try {
@@ -251,13 +243,13 @@ public class Database {
             ps.setString(1, pallet_id);
             ResultSet result = ps.executeQuery();
 
-            if(result.next()){
+            if (result.next()) {
 
                 PreparedStatement ps1 = conn.prepareStatement(sql_customer);
-                ps1.setInt(1,result.getInt("customerID"));
+                ps1.setInt(1, result.getInt("customerID"));
                 ResultSet result1 = ps1.executeQuery();
 
-                if(result1.next()){
+                if (result1.next()) {
 
                     recipe.setText(result.getString("recipeName"));
                     customer_id.setText(result1.getString("name"));
@@ -269,7 +261,6 @@ public class Database {
                 }
 
             }
-
 
 
         } catch (SQLException e) {
@@ -286,14 +277,15 @@ public class Database {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, pallet_id);
             ResultSet result = ps.executeQuery();
-            if(result.next()){
-                if(result.getDate("timestampDelivery") == null){
-                    if((!result.getBoolean("blockForDelivery") && isDateValid(deliv_date.trim()) && result.getDate("timestampBaking").compareTo(Date.valueOf(deliv_date.trim())) < 0)){
-                        String updateSql = "update Pallets set timestampDelivery = ? where palletID = ?";
+            if (result.next()) {
+                if (result.getDate("timestampDelivery") == null) {
+                    if ((!result.getBoolean("blockForDelivery") && isDateValid(deliv_date.trim()) && result.getDate("timestampBaking").compareTo(Date.valueOf(deliv_date.trim())) < 0)) {
+                        String updateSql = "update Pallets set timestampDelivery = ? and location = ? where palletID = ?";
                         PreparedStatement up = conn.prepareStatement(updateSql);
 
                         up.setString(1, deliv_date.trim());
-                        up.setInt(2, pallet_id);
+                        up.setString(2,"Ramp");
+                        up.setInt(3, pallet_id);
                         up.executeUpdate();
                         delivered = true;
                     }
@@ -309,23 +301,23 @@ public class Database {
         return delivered;
     }
 
-    public boolean createPallet(int customerID, String deliveryDate, String productionDate,Boolean blockedStatus,String currentLocation,String currentRecipe) {
+    public boolean createPallet(int customerID, String deliveryDate, String productionDate, Boolean blockedStatus, String currentLocation, String currentRecipe) {
         boolean success = true;
         try {
             conn.setAutoCommit(false);
 
             String sql_ingredients = "select * from Ingredients where recipeName = ?";
             PreparedStatement ps_ingr = conn.prepareStatement(sql_ingredients);
-            ps_ingr.setString(1,currentRecipe);
+            ps_ingr.setString(1, currentRecipe);
             ResultSet rs_ingr = ps_ingr.executeQuery();
 
-            while(rs_ingr.next()){
+            while (rs_ingr.next()) {
                 String sql = "select currentAmount from RawMaterials where materialName = ?";
                 PreparedStatement ps_rawm = conn.prepareCall(sql);
-                ps_rawm.setString(1,rs_ingr.getString("materialName"));
+                ps_rawm.setString(1, rs_ingr.getString("materialName"));
                 ResultSet rs_rawm = ps_rawm.executeQuery();
-                if (rs_rawm.next()){
-                    if (rs_rawm.getDouble("currentAmount") >= rs_ingr.getDouble("amount")){
+                if (rs_rawm.next()) {
+                    if (rs_rawm.getDouble("currentAmount") >= rs_ingr.getDouble("amount")) {
 
                         String updateSql = "update RawMaterials set currentAmount = currentAmount - ? where materialName = ?;";
                         PreparedStatement up = conn.prepareStatement(updateSql); // updates remainingSeats
@@ -344,7 +336,7 @@ public class Database {
 
             }
 
-            if (success){
+            if (success) {
                 String sql = "INSERT INTO Pallets (customerID,recipeName,location,timestampBaking,blockForDelivery,timestampDelivery) VALUES (?, ?, ?, ?, ?, ?);";
                 PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -354,7 +346,7 @@ public class Database {
                 ps.setDate(4, Date.valueOf(productionDate));
                 ps.setBoolean(5, blockedStatus);
 
-                if (!blockedStatus && deliveryDate != null && !deliveryDate.isEmpty()){
+                if (!blockedStatus && deliveryDate != null && !deliveryDate.isEmpty()) {
                     ps.setDate(6, Date.valueOf(deliveryDate));
                 } else {
                     ps.setDate(6, null);
@@ -378,8 +370,6 @@ public class Database {
         return success;
 
     }
-
-
 
 
     public int bookTicket(String movie, String date, String uname) {
@@ -437,7 +427,7 @@ public class Database {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, customerID);
             ResultSet result = ps.executeQuery();
-            if(result.next()){
+            if (result.next()) {
                 return false;
             }
 

@@ -1,10 +1,5 @@
 package application;
 
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,13 +8,30 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class BlockPallets {
 
     private Database db;
     private List<String> allRecipes = new ArrayList<>();
-    private ArrayList<String > pallets_for_blocking = null;
+    private ArrayList<String> pallets_for_blocking = null;
     private String currentRecipe = "";
+    @FXML
+    private TextField end_date;
+    @FXML
+    private ListView<String> Filter_result_pane;
+    @FXML
+    private Label NbrOfPallets;
+    @FXML
+    private ListView<String> recipe_list;
+    @FXML
+    private TextField start_date;
+    @FXML
+    private Button palletCalcButton;
+    @FXML
+    private Button block_button;
 
     public void setDatabase(Database db) {
         this.db = db;
@@ -28,19 +40,20 @@ public class BlockPallets {
     public void fillTables() {
         fillList();
     }
-    private void fillList(){
+
+    private void fillList() {
 
         allRecipes.add("");
         allRecipes.addAll(db.getRecipes());
         recipe_list.setItems(FXCollections.observableList(allRecipes));
 
 
-
         recipe_list.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldV, newV) -> {
                     currentRecipe = newV;
                     refresh();
-                });
+                }
+        );
         // remove any selection
         recipe_list.getSelectionModel().select(0);
 
@@ -51,35 +64,12 @@ public class BlockPallets {
 
     }
 
+    @FXML
+    void refresh_button_action(ActionEvent event) {
+        refresh();
+    }
 
-
-        @FXML
-        private TextField end_date;
-
-        @FXML
-        private ListView<String> Filter_result_pane;
-
-        @FXML
-        private Label NbrOfPallets;
-
-        @FXML
-        private ListView<String> recipe_list;
-
-        @FXML
-        private TextField start_date;
-
-        @FXML
-        private Button palletCalcButton;
-
-        @FXML
-        private Button block_button;
-
-        @FXML
-        void refresh_button_action(ActionEvent event) {
-            refresh();
-        }
-
-    private void refresh(){
+    private void refresh() {
         String prod_date_start_filter = start_date.getText();
         String prod_date_end_filter = end_date.getText();
         prod_date_start_filter = prod_date_start_filter.trim();
@@ -103,11 +93,10 @@ public class BlockPallets {
     }
 
 
-
     @FXML
     void blockButtonAction(ActionEvent event) {
 
-        if (db.blockPallets(pallets_for_blocking)){
+        if (db.blockPallets(pallets_for_blocking)) {
             System.out.println("Failed to block pallets");
         }
 

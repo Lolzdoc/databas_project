@@ -1,9 +1,10 @@
 package application;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class TopTabView {
 
@@ -30,26 +31,26 @@ public class TopTabView {
     @FXML
     private CreatePallet apalletTabController;
 
-    public void initializeFix(){
+    public void initializeFix() {
         ablockPalletsTabController.fillTables();
         aSearchTabController.fillTables();
         apalletTabController.fillTables();
     }
 
     public void initialize() {
-		System.out.println("TopTabView initializing");
+        System.out.println("TopTabView initializing");
 
-		// send the booking controller ref to the login controller
-		// in order to pass data around
-		//aLoginTabController.setBookingTab(aBookingTabController);
-	}
-	
-	public void setDatabase(Database db) {
+        // send the booking controller ref to the login controller
+        // in order to pass data around
+        //aLoginTabController.setBookingTab(aBookingTabController);
+    }
+
+    public void setDatabase(Database db) {
 
         ablockPalletsTabController.setDatabase(db);
         aSearchTabController.setDatabase(db);
         apalletTabController.setDatabase(db);
-	}
+    }
 
    /* public BookingTab getBookingTab() {
         return aBookingTabController;
