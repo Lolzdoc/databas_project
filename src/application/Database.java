@@ -1,5 +1,6 @@
 package application;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
@@ -326,7 +327,10 @@ public class Database {
 
                     } else {
                         success = false;
-                        System.out.println("Database.createPallet");
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Database Error ");
+                        alert.setContentText("Not enough ingredients: \n" +rs_ingr.getString("materialName") +" : " + rs_rawm.getDouble("currentAmount") +"\n" + "Needs : "+ rs_ingr.getDouble("amount"));
+                        alert.showAndWait();
                         conn.rollback();
                         break;
                     }
