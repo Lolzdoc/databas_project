@@ -40,9 +40,6 @@ public class TopTabView {
     public void initialize() {
         System.out.println("TopTabView initializing");
 
-        // send the booking controller ref to the login controller
-        // in order to pass data around
-        //aLoginTabController.setBookingTab(aBookingTabController);
     }
 
     public void setDatabase(Database db) {
@@ -52,10 +49,6 @@ public class TopTabView {
         apalletTabController.setDatabase(db);
     }
 
-   /* public BookingTab getBookingTab() {
-        return aBookingTabController;
-    }
-    */
 }
 
 

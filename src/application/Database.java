@@ -15,9 +15,6 @@ import java.util.ArrayList;
  * movie database. Uses JDBC and the MySQL Connector/J driver.
  */
 public class Database {
-    public static final int SUCCESS = 0;
-    public static final int GENERAL_FAILURE = -1;
-    public static final int NO_SEATS_FAILURE = -2;
     final static String DATE_FORMAT = "yyyy-MM-dd";
     /**
      * The database connection.
