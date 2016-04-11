@@ -29,7 +29,7 @@ CREATE TABLE Recipes(
 CREATE TABLE Ingredients(
   materialName varchar(40),
   recipeName varchar(40),
-  amount double,
+  amount double not null,
   primary key(materialName, recipeName),
   foreign key(materialName) references RawMaterials(materialName),
   foreign key(recipeName) references Recipes(recipeName)
@@ -37,7 +37,7 @@ CREATE TABLE Ingredients(
 
 CREATE TABLE Orders(
   orderId int auto_increment,
-  amount int,
+  amount int not null,
   deliveryDate Date,
   primary key(orderId)
 );
@@ -52,8 +52,8 @@ CREATE TABLE RecipesInOrder(
 
 CREATE TABLE Customers(
   customerID int auto_increment,
-  name varchar(40),
-  adress varchar(40),
+  name varchar(40) not null,
+  adress varchar(40) not null,
   primary key(customerID)
 );
 
@@ -61,9 +61,9 @@ CREATE TABLE Pallets(
   palletID int auto_increment,
   customerID int,
   recipeName varchar(40),
-  location varchar(40),
-  timestampBaking Date, -- Fix stuff that should be not Null!!
-  blockForDelivery boolean,
+  location varchar(40) not null,
+  timestampBaking Date not null, 
+  blockForDelivery boolean not null,
   timestampDelivery Date,
   primary key(palletID),
   foreign key(recipeName) references Recipes(recipeName),
